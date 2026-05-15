@@ -1,7 +1,36 @@
 import Link from "next/link";
-import { briefs } from "@/app/data/briefs";
+import { getBaseUrl } from "@/lib/baseUrl";
+import { supabaseServer } from "@/lib/supabase-server";
 
-export default function HomePage() {
+type Story = {
+  title: string;
+  summary: string;
+};
+
+type Brief = {
+  slug: string;
+  date: string;
+  stories: Story[];
+};
+
+async function getBriefs() {
+  const { data, error } = await supabaseServer
+    .from("briefs")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    return { briefs: [] };
+  }
+
+  return { briefs: data || [] };
+}
+
+export default async function HomePage() {
+  const data = await getBriefs();
+
+  const briefs: Brief[] = data?.briefs || [];
   const latestBrief = briefs[0];
 
   return (
@@ -40,7 +69,7 @@ export default function HomePage() {
         <div className="mt-10 flex gap-4">
 
           <Link
-            href={`/brief/${latestBrief.slug}`}
+            href={latestBrief ? `/brief/${latestBrief.slug}` : "#"}
             className="bg-black text-white px-6 py-3 rounded-xl"
           >
             Read Today’s Brief
@@ -63,25 +92,33 @@ export default function HomePage() {
             Latest Edition
           </p>
 
-          <Link href={`/brief/${latestBrief.slug}`}>
+          {latestBrief && (
+            <Link href={`/brief/${latestBrief.slug}`}>
 
-            <div className="mt-5 bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition cursor-pointer">
+              <div className="mt-5 bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition cursor-pointer">
 
-              <p className="text-sm text-gray-500">
-                {latestBrief.date}
-              </p>
+                <p className="text-sm text-gray-500">
+                  {latestBrief.date}
+                </p>
 
-              <h2 className="text-4xl font-bold mt-3">
-                {latestBrief.stories[0].title}
-              </h2>
+                <h2 className="text-4xl font-bold mt-3">
+                  {latestBrief.stories?.[0]?.title ?? "No title"}
+                </h2>
 
-              <p className="mt-5 text-lg text-gray-700 leading-8">
-                {latestBrief.stories[0].content}
-              </p>
+                <p className="mt-5 text-lg text-gray-700 leading-8">
+                  {latestBrief.stories?.[0]?.summary ?? "No summary"}
+                </p>
 
-            </div>
+              </div>
 
-          </Link>
+            </Link>
+          )}
+
+          {!latestBrief && (
+            <p className="mt-5 text-gray-500">
+              No briefs published yet.
+            </p>
+          )}
 
         </div>
 
@@ -98,23 +135,29 @@ export default function HomePage() {
 
           <div className="mt-8 space-y-4">
 
-            {briefs.map((brief) => (
-              <Link
-                key={brief.slug}
-                href={`/brief/${brief.slug}`}
-                className="block bg-white p-6 rounded-2xl hover:shadow-md transition"
-              >
+            {briefs.length > 0 ? (
+              briefs.map((brief) => (
+                <Link
+                  key={brief.slug}
+                  href={`/brief/${brief.slug}`}
+                  className="block bg-white p-6 rounded-2xl hover:shadow-md transition"
+                >
 
-                <p className="text-sm text-gray-500">
-                  {brief.date}
-                </p>
+                  <p className="text-sm text-gray-500">
+                    {brief.date}
+                  </p>
 
-                <h4 className="text-2xl font-semibold mt-2">
-                  {brief.stories[0].title}
-                </h4>
+                  <h4 className="text-2xl font-semibold mt-2">
+                    {brief.stories?.[0]?.title}
+                  </h4>
 
-              </Link>
-            ))}
+                </Link>
+              ))
+            ) : (
+              <p className="text-gray-500">
+                No archive available yet.
+              </p>
+            )}
 
           </div>
 

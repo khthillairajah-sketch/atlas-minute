@@ -1,27 +1,51 @@
 type NewsBlockProps = {
   category: string;
   title: string;
-  content: string;
+  summary: string;
+  source: string;
+  readTime: string;
+  publishedAt: string;
 };
 
 export default function NewsBlock({
   category,
   title,
-  content,
+  summary,
+  source,
+  readTime,
+  publishedAt,
 }: NewsBlockProps) {
   return (
     <section className="mb-12 border-b border-gray-200 pb-10">
-      <p className="text-sm uppercase tracking-wider text-red-700 font-semibold">
-        {category}
-      </p>
 
-      <h2 className="text-3xl font-bold mt-2 leading-tight">
+      <div className="flex items-center gap-3 text-sm text-gray-500 mb-3">
+
+        <span className="uppercase tracking-wider text-red-700 font-semibold">
+          {category}
+        </span>
+
+        <span>•</span>
+
+        <span>{publishedAt}</span>
+
+        <span>•</span>
+
+        <span>{readTime}</span>
+
+      </div>
+
+      <h2 className="text-3xl font-bold leading-tight">
         {title}
       </h2>
 
       <p className="mt-4 text-lg leading-8 text-gray-700">
-        {content}
+        {summary}
       </p>
+
+      <p className="mt-5 text-sm text-gray-500">
+        Source: {source}
+      </p>
+
     </section>
   );
 }
