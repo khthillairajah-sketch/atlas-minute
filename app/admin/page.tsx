@@ -50,24 +50,32 @@ export default function AdminPage() {
   }
 
   async function publishBrief() {
+    const payload = {
+      slug: editingSlug || date,
+      date,
+      heroTitle,
+      heroDescription,
+      stories,
+    };
+
     const method = editingSlug ? "PUT" : "POST";
 
-    await fetch(`${getBaseUrl()}/api/briefs`, {
+    await fetch("/api/briefs", {
       method,
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        slug: editingSlug,
-        date,
-        heroTitle,
-        heroDescription,
-        stories,
-      }),
+      body: JSON.stringify(payload),
     });
 
-    alert("Brief published successfully!");
+    alert("Brief saved successfully!");
+
     setEditingSlug("");
+    setDate("");
+    setHeroTitle("");
+    setHeroDescription("");
+    setStories([]);
+
     loadBriefs();
   }
 
@@ -83,6 +91,8 @@ export default function AdminPage() {
   }
 
   async function deleteBrief(slug: string) {
+    if (!confirm("Delete this brief?")) return;
+
     await fetch(`${getBaseUrl()}/api/briefs`, {
       method: "DELETE",
       headers: {
@@ -95,12 +105,10 @@ export default function AdminPage() {
   }
 
   function editBrief(brief: any) {
-    setEditingSlug(brief.slug);
-
     setDate(brief.date);
+    setEditingSlug(brief.slug);
     setHeroTitle(brief.heroTitle);
     setHeroDescription(brief.heroDescription);
-
     setStories(brief.stories);
   }
 
@@ -113,6 +121,12 @@ export default function AdminPage() {
         <h1 className="text-2xl font-bold">
           Atlas Minute Admin
         </h1>
+
+        {editingSlug && (
+          <p className="text-sm text-gray-500 mt-1">
+            Editing: {editingSlug}
+          </p>
+        )}
 
         <button
           onClick={publishBrief}

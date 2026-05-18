@@ -35,22 +35,7 @@ export default async function HomePage() {
 
   return (
     <main className="min-h-screen bg-[#F7F3EB] text-black">
-
-      {/* Navbar */}
-      <nav className="border-b border-gray-200 px-6 py-5">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-
-          <h1 className="text-2xl font-bold">
-            Atlas Minute
-          </h1>
-
-          <button className="border border-black px-4 py-2 rounded-xl text-sm">
-            Join Newsletter
-          </button>
-
-        </div>
-      </nav>
-
+      
       {/* Hero */}
       <section className="max-w-5xl mx-auto px-6 py-24">
 
