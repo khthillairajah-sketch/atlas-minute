@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className="bg-[#F7F3EB] text-black">
 
         {/* GLOBAL NAVBAR */}
-        <nav className="border-b border-gray-200 px-6 py-5">
+        <nav className="bg-white border-b border-gray-200 px-6 py-5">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
 
             <Link href="/" className="flex items-center">
