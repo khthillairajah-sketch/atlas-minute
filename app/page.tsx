@@ -37,30 +37,30 @@ export default async function HomePage() {
     <main className="min-h-screen bg-[#F7F3EB] text-black">
       
       {/* Hero */}
-      <section className="max-w-5xl mx-auto px-6 py-24">
+      <section className="max-w-5xl mx-auto px-6 py-16 md:py-24">
 
         <p className="uppercase tracking-[0.3em] text-sm text-gray-500">
           Moroccan Daily Briefing
         </p>
 
-        <h1 className="text-7xl font-bold leading-tight mt-5">
+        <h1 className="text-5xl md:text-7xl font-bold leading-tight mt-5">
           Morocco in 3 minutes.
         </h1>
 
-        <p className="text-xl text-gray-600 mt-8 leading-8 max-w-2xl">
+        <p className="text-lg md:text-xl text-gray-600 mt-8 leading-8 max-w-2xl">
           A concise and unbiased daily briefing for Moroccans around the world.
         </p>
 
-        <div className="mt-10 flex gap-4">
+        <div className="mt-10 flex flex-col sm:flex-row gap-4">
 
           <Link
             href={latestBrief ? `/brief/${latestBrief.slug}` : "#"}
-            className="bg-black text-white px-6 py-3 rounded-xl"
+            className="border border-black px-6 py-3 rounded-xl hover:bg-black hover:text-white transition"
           >
             Read Today’s Brief
           </Link>
 
-          <button className="border border-black px-6 py-3 rounded-xl">
+          <button className="bg-black text-white px-6 py-3 rounded-xl hover:bg-black hover:text-white transition">
             Join Newsletter
           </button>
 

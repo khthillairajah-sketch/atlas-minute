@@ -61,7 +61,7 @@ export default async function BriefPage({
           Moroccan Daily Briefing
         </p>
 
-        <h1 className="text-6xl font-bold leading-tight mt-5">
+        <h1 className="text-4xl md:text-6xl font-bold leading-tight mt-5">
           {brief.heroTitle}
         </h1>
 
@@ -94,11 +94,11 @@ export default async function BriefPage({
                 {story.title}
               </h2>
 
-              <p className="mt-5 text-lg leading-8 text-gray-700">
+              <p className="mt-5 text-[17px] md:text-lg leading-8 text-gray-700">
                 {story.summary}
               </p>
 
-              <div className="mt-6 flex gap-5 text-sm text-gray-500">
+              <div className="mt-6 flex flex-wrap gap-4 text-sm text-gray-500">
 
                 <span>{story.source}</span>
                 <span>{story.readTime}</span>

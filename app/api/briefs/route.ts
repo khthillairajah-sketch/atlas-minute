@@ -1,17 +1,5 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
 import { supabase } from "@/lib/supabase";
-
-const filePath = path.join(process.cwd(), "app/data/database.json");
-
-function readDB() {
-  return JSON.parse(fs.readFileSync(filePath, "utf-8"));
-}
-
-function writeDB(data: any) {
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-}
 
 // GET all briefs
 export async function GET() {

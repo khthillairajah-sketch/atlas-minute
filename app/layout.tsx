@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className="bg-[#F7F3EB] text-black">
 
         {/* GLOBAL NAVBAR */}
-        <nav className="bg-white border-b border-gray-200 px-6 py-5">
+        <nav className="bg-white border-b border-gray-200 px-6 py-4">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
 
             <Link href="/" className="flex items-center">
@@ -46,12 +46,12 @@ export default function RootLayout({
             <div className="flex gap-4 items-center">
               <Link
                 href="/admin"
-                className="text-sm border px-4 py-2 rounded-xl"
+                className="bg-black text-white px-6 py-3 rounded-xl hover:opacity-90 transition"
               >
                 Admin
               </Link>
 
-              <button className="border border-black px-4 py-2 rounded-xl text-sm">
+              <button className="bg-black text-white px-6 py-3 rounded-xl hover:opacity-90 transition">
                 Join Newsletter
               </button>
             </div>
