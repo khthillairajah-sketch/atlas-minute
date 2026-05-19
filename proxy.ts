@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   let res = NextResponse.next();
 
   const supabase = createServerClient(
@@ -21,7 +21,6 @@ export async function middleware(req: NextRequest) {
     }
   );
 
-  // THIS is the key improvement
   const {
     data: { user },
   } = await supabase.auth.getUser();
