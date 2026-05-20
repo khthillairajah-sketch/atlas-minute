@@ -19,6 +19,9 @@ async function getBriefs() {
     .select("*")
     .order("created_at", { ascending: false });
 
+  console.log("BRIEFS:", data);
+  console.log("ERROR:", error);
+
   if (error) {
     console.error(error);
     return { briefs: [] };
@@ -28,8 +31,8 @@ async function getBriefs() {
 }
 
 export default async function HomePage() {
+  
   const data = await getBriefs();
-
   const briefs: Brief[] = data?.briefs || [];
   const latestBrief = briefs[0];
 

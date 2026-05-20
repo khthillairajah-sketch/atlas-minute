@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { supabaseServer } from "@/lib/supabase-server";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 import { buildBrief } from "@/src/lib/news/buildBrief";
 import type { Cluster } from "@/src/lib/news/clusterEngine";
 
 export async function GET() {
-  const { data: drafts, error } = await supabaseServer
+  const { data: drafts, error } = await supabaseAdmin
     .from("drafts")
     .select("*")
     .order("created_at", { ascending: false });
@@ -49,7 +49,7 @@ export async function GET() {
     stories,
   };
 
-  const { error: insertError } = await supabaseServer
+  const { error: insertError } = await supabaseAdmin
     .from("briefs")
     .upsert([briefPayload], { onConflict: "slug" });
 

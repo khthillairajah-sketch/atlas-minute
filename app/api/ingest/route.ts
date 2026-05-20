@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import Parser from "rss-parser";
-import { supabaseServer } from "@/lib/supabase-server";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 
 
 const parser = new Parser({
@@ -62,7 +62,7 @@ export async function GET() {
           // skip broken entries
           if (!title || !url) continue;
 
-          const { error } = await supabaseServer.from("drafts").insert({
+          const { error } = await supabaseAdmin.from("drafts").insert({
             title,
             summary,
             url,
