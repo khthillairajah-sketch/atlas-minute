@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { buildBrief } from "@/src/lib/news/buildBrief";
 import type { Cluster } from "@/src/lib/news/clusterEngine";
+import { normalizeDate } from "@/lib/utils/date";
 
 export async function GET() {
   const { data: drafts, error } = await supabaseAdmin
@@ -38,10 +39,12 @@ export async function GET() {
     };
   });
 
-  const date = new Date().toISOString().split("T")[0];
+
+  const date = normalizeDate(new Date());
+  const slug = date;
 
   const briefPayload = {
-    slug: date,
+    slug,
     date,
     heroTitle: stories[0]?.title || "Today in Morocco",
     heroDescription:
@@ -50,7 +53,7 @@ export async function GET() {
   };
 
   const { error: insertError } = await supabaseAdmin
-    .from("briefs")
+    .from("brief_drafts")
     .upsert([briefPayload], { onConflict: "slug" });
 
   if (insertError) {

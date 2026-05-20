@@ -22,7 +22,7 @@ type Brief = {
 
 async function getBrief(date: string): Promise<BriefRow | null> {
   const { data, error } = await supabaseServer
-    .from("briefs")
+    .from("brief_drafts")
     .select("*")
     .eq("slug", date);
 

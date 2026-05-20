@@ -15,7 +15,7 @@ type Brief = {
 
 async function getBriefs() {
   const { data, error } = await supabaseServer
-    .from("briefs")
+    .from("brief_drafts")
     .select("*")
     .order("created_at", { ascending: false });
 
